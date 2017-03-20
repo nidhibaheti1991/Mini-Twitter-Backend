@@ -87,7 +87,25 @@ public class PersonRepository {
         }
     };
 
+    public List<Person> getPersons() {
+        return jdbcTemplate.query("SELECT * FROM person", personMapper);
+    }
+    
+    public List<Person> popular(){
+        List<Person> list = getPersons();
+        List<Person> res = new ArrayList<Person>();
+        for(Person person:list){
+           Person mostPopular = popularPerson(person.getId());
+            person.setMostPopularFollower(mostPopular);
+            res.add(new Person(person.getId(),person.getName(),person.getMostPopularFollower()));
+        }
+        return res;
+    }
+
+    public Person popularPerson(long id){
+        return this.jdbcTemplate.queryForObject("select * from person where id in (select person_id from (SELECT person_id, count(follower_person_id) AS num_of_followers FROM followers WHERE person_id IN (select follower_person_id from followers where person_id=?) GROUP BY  person_id order by num_of_followers desc) t1 limit 1)", personMapper,id);
+    }
+    
+
+
 }
-
-
-

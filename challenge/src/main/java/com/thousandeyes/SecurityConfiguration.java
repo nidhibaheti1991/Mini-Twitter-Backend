@@ -16,7 +16,28 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication()
                 .withUser("user1").password("secret1").roles("USER")
                 .and()
-                .withUser("user2").password("secret2").roles("USER");
+                .withUser("user2").password("secret2").roles("USER")
+                .and()
+                .withUser("user3").password("secret3").roles("USER")
+                .and()
+                .withUser("user4").password("secret4").roles("USER")
+                .and()
+                .withUser("user5").password("secret5").roles("USER")
+                .and()
+                .withUser("user6").password("secret6").roles("USER")
+                .and()
+                .withUser("user7").password("secret7").roles("USER")
+                .and()
+                .withUser("user8").password("secret8").roles("USER")
+                .and()
+                .withUser("user9").password("secret9").roles("USER")
+                 .and()
+                .withUser("user10").password("secret10").roles("USER");
+
+
+
+
+
     }
 
 //    @Override
@@ -32,8 +53,41 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().anyRequest().fullyAuthenticated();
+        http.authorizeRequests()
+                .anyRequest().fullyAuthenticated();
         http.httpBasic();
         http.csrf().disable();
     }
+
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http
+//                .authorizeRequests()
+//                .antMatchers("/", "/home").permitAll()
+//                .anyRequest().authenticated()
+//                .and()
+//                .formLogin()
+//                .loginPage("/login")
+//                .permitAll()
+//                .and()
+//                .logout()
+//                .permitAll();
+//    }
+    
+//        @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http
+//          .authorizeRequests()
+//          .antMatchers("/","/home").permitAll()
+//          .antMatchers("/admin").hasRole("ADMIN")
+//          .anyRequest().authenticated()
+//          .and()
+//          .formLogin()
+//          .loginPage("/login")
+//          .permitAll()
+//          .and()
+//          .logout()
+//          .permitAll();
+//        http.exceptionHandling().accessDeniedPage("/403");
+//    }
 }

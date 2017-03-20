@@ -13,10 +13,15 @@ import java.util.*;
 public class Person {
     private long id;
     private String name;
-
+    private Person mostPopularFollower;
     public Person(long id, String name){
         this.id = id;
         this.name = name;
+    }
+    public Person(long id, String name, Person mostPopularFollower){
+        this.id = id;
+        this.name = name;
+        this.mostPopularFollower = mostPopularFollower;
     }
     public long getId() {
         return id;
@@ -34,4 +39,11 @@ public class Person {
         this.name = name;
     }
 
+    public void setMostPopularFollower(Person mostPopularFollower){
+        this.mostPopularFollower = mostPopularFollower;
+    }
+
+    public Person getMostPopularFollower(){
+        return this.mostPopularFollower;
+    }
 }
