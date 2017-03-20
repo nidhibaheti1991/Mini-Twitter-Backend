@@ -88,12 +88,12 @@ public class PersonController {
     }
 
     @RequestMapping("/messages")
-    public List<Message> messages(){
+    public List<Message> messages(@RequestParam(value="search", defaultValue="") String search){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName();
         Long id = Long.parseLong(name.substring(4));
         log.info("Get messages of person: " + id);
-        return person.messages(id);
+        return person.messages(id,search);
     }
 
     @RequestMapping("/popular")

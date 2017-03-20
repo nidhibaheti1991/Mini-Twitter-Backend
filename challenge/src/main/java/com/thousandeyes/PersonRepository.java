@@ -69,12 +69,12 @@ public class PersonRepository {
                  idToUnfollow,id);
     }
     
-    public List<Message> messages(long id){
-        return this.jdbcTemplate.query("SELECT tweet.person_id as id, person.name as name, tweet.content as content " +
+    public List<Message> messages(long id,String search){
+        return this.jdbcTemplate.query("SELECT * FROM (SELECT tweet.person_id as id, person.name as name, tweet.content as content " +
                 "FROM tweet LEFT JOIN person " +
                 "ON tweet.person_id=person.id " +
                 "WHERE tweet.person_id IN " +
-                "(SELECT person_id FROM followers WHERE follower_person_id=?) OR tweet.person_id=?",messageMapper, id, id);
+                "(SELECT person_id FROM followers WHERE follower_person_id=?) OR tweet.person_id=?) WHERE content LIKE ?",messageMapper, id, id, new String("%"+search+"%"));
 
     }
 
